@@ -125,9 +125,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 Created with ❤️ by **Paul Bryton Raj**
 
-- 📧 Email: paulbrytonraj@example.com
-- 🐙 GitHub: [@paulbrytonraj](https://github.com/paulbrytonraj)
-- 💼 LinkedIn: [paulbrytonraj](https://linkedin.com/in/paulbrytonraj)
+- 📧 Email: paulbrytonraj18@gmail.com
+- 🐙 GitHub: [@PaulBrytonRaj18](https://github.com/PaulBrytonrRaj18)
+- 💼 LinkedIn: [Paul Bryton Raj](https://linkedin.com/in/paul-bryton-raj)
 
 ---
 
