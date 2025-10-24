@@ -89,7 +89,19 @@ const Quiz = () => {
                   <button className="btn btn-secondary" onClick={handleBackToHome}>
                     Back to Topics
                   </button>
+                  
                 </div>
+                <div className="correct-answers">
+                    <h4><br />Correct Answers:</h4>
+                    <ul>
+                      {questions.map((q, index) => (
+                        <li key={index}>
+                          Question {index + 1}: {q.question} Correct Answer: {q.options[q.options.findIndex(option => option.includes(q.answer))]} <hr/>
+                        </li>
+                      ))}
+                    </ul>
+                </div>
+                <h4 className="mt-4">Hope you enjoyed the quiz!</h4>
               </div>
             </div>
           </div>
