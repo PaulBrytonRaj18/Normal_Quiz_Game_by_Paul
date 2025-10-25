@@ -27,6 +27,14 @@ const Quiz = () => {
     }));
   };
 
+  const [answeredQuestions, setAnsweredQuestions] = useState(Array(questions.length).fill(false));
+
+  const markAsAnswered = (idx) => {
+    setAnsweredQuestions(prev =>
+      prev.map((val, i) => i === idx ? true : val)
+    );
+  };
+
   const handleSubmit = () => {
     let correctAnswers = 0;
     questions.forEach((question, index) => {
@@ -118,7 +126,30 @@ const Quiz = () => {
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="mb-0">{topic.name} Quiz</h2>
             </div>
-          
+
+           
+
+<div className="question-number-indicator">
+  {Array.from({ length: questions.length }).map((_, idx) => (
+    <div
+      key={idx}
+      className={`question-number-indicator-item${answeredQuestions[idx] ? 'answered' : 'not-answered'}`}
+    >
+      <button
+        onClick={() => {
+          setCurrentQuestion(idx);
+          markAsAnswered(idx);
+        }}
+        className="question-number-btn"
+        aria-current={currentQuestion === idx}
+      >
+        {idx + 1}
+      </button>
+    </div>
+  ))}
+</div>
+
+
             <div className="progress-bar">
               <div 
                 className="progress-fill" 
