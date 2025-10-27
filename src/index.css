@@ -8,7 +8,7 @@
   --text-color: #212529;
   --card-bg: #f8f9fa;
   --border-color: #dee2e6;
-  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow: 0 0.125rem 0.25rem rgb(40, 17, 17);
 }
 
 [data-theme="dark"] {
@@ -19,7 +19,7 @@
   --text-color: #ffffff;
   --card-bg: #252932;
   --border-color: #495057;
-  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+  --shadow: 0 0.125rem 0.25rem rgba(174, 173, 173, 0);
 }
 
 * {
@@ -176,6 +176,34 @@ body {
   padding: 2rem 0;
 }
 
+.list-group-item {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+  transition: background-color 1s ease, color 0.5s ease;
+  list-style-type: none;
+} 
+
+.list-group-item:hover {
+  scale: 1.05 !important;
+  background-color: black !important;
+  color: white !important;
+}
+
+[data-theme="dark"] .list-group-item {
+  color: white !important;
+  border-radius: 0.5rem !important;
+}
+
+[data-theme="dark"] .list-group-item:hover {
+  background-color: white !important;
+  color: black !important;
+}
+  
 .question-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);

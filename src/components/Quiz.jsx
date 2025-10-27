@@ -101,10 +101,10 @@ const Quiz = () => {
                 </div>
                 <div className="correct-answers">
                     <h4><br />Correct Answers:</h4>
-                    <ul>
+                    <ul className="list-group">
                       {questions.map((q, index) => (
-                        <li key={index}>
-                          Question {index + 1}: {q.question} Correct Answer: {q.options[q.options.findIndex(option => option.includes(q.answer))]} <hr/>
+                        <li key={index} className="list-group-item">
+                          Question {index + 1}: {q.question} <hr/> Correct Answer: {q.options[q.options.findIndex(option => option.includes(q.answer))]} 
                         </li>
                       ))}
                     </ul>
