@@ -95,6 +95,7 @@ src/
 - Answer validation and scoring
 - Feedback messages based on performance
 - Option to retry or return to topic selection
+- The Correct answers will be shown at the End of the Quiz
 
 ### Responsive Design
 - Mobile-first approach
