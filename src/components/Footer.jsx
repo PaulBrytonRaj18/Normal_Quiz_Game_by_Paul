@@ -13,14 +13,14 @@ const Footer = () => {
             <p className="mb-3">
               A fun and engaging way to test your knowledge across various topics
             </p>
-            <div className="d-flex justify-content-center gap-4">
-              <a href="mailto:paulbrytonraj18@gmail.com" className="text-decoration-none">
+            <div className="footer-links">
+              <a href="mailto:paulbrytonraj18@gmail.com" className="footer-link">
                 📧 Contact
               </a>
-              <a href="https://github.com/PaulBrytonRaj18" className="text-decoration-none" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/PaulBrytonRaj18" className="footer-link" target="_blank" rel="noopener noreferrer">
                 🐙 GitHub
               </a>
-              <a href="https://linkedin.com/in/paul-bryton-raj" className="text-decoration-none" target="_blank" rel="noopener noreferrer">
+              <a href="https://linkedin.com/in/paul-bryton-raj" className="footer-link" target="_blank" rel="noopener noreferrer">
                 💼 LinkedIn
               </a>
             </div>

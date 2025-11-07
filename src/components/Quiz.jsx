@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { topics } from '../data/questions';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { topics } from "../data/questions";
 
 const Quiz = () => {
   const { topicId } = useParams();
@@ -11,27 +11,29 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
   const [showAnswers, setShowAnswers] = useState(false);
 
-  const topic = topics.find(t => t.id === topicId);
+  const topic = topics.find((t) => t.id === topicId);
   const questions = topic?.questions || [];
 
   useEffect(() => {
     if (!topic) {
-      navigate('/');
+      navigate("/");
     }
   }, [topic, navigate]);
 
   const handleAnswerSelect = (questionIndex, answer) => {
-    setSelectedAnswers(prev => ({
+    setSelectedAnswers((prev) => ({
       ...prev,
-      [questionIndex]: answer
+      [questionIndex]: answer,
     }));
   };
 
-  const [answeredQuestions, setAnsweredQuestions] = useState(Array(questions.length).fill(false));
+  const [answeredQuestions, setAnsweredQuestions] = useState(
+    Array(questions.length).fill(false),
+  );
 
   const markAsAnswered = (idx) => {
-    setAnsweredQuestions(prev =>
-      prev.map((val, i) => i === idx ? true : val)
+    setAnsweredQuestions((prev) =>
+      prev.map((val, i) => (i === idx ? true : val)),
     );
   };
 
@@ -56,7 +58,7 @@ const Quiz = () => {
   };
 
   const handleBackToHome = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const getFeedbackMessage = (score) => {
@@ -67,7 +69,8 @@ const Quiz = () => {
     return "Don't give up! Practice makes perfect! 💪";
   };
 
-  const isAllAnswered = Object.keys(selectedAnswers).length === questions.length;
+  const isAllAnswered =
+    Object.keys(selectedAnswers).length === questions.length;
 
   if (!topic) {
     return (
@@ -90,24 +93,40 @@ const Quiz = () => {
                 <h2 className="mb-4">Quiz Complete!</h2>
                 <div className="score-display">{score}/10</div>
                 <p className="feedback-message">{getFeedbackMessage(score)}</p>
-                <div className="d-flex gap-3 justify-content-center mt-4">
-                  <button className="btn btn-primary" onClick={handleRestart}>
+                <div className="result-buttons">
+                  <button className="btn btn-primary result-btn" onClick={handleRestart}>
                     Try Again
                   </button>
-                  <button className="btn btn-secondary" onClick={handleBackToHome}>
+                  <button
+                    className="btn btn-secondary result-btn"
+                    onClick={handleBackToHome}
+                  >
                     Back to Topics
                   </button>
-                  
                 </div>
+              </div>
+              <br></br>
+              <div className="correct-answer">
                 <div className="correct-answers">
-                    <h4><br />Correct Answers:</h4>
-                    <ul className="list-group">
-                      {questions.map((q, index) => (
-                        <li key={index} className="list-group-item">
-                          Question {index + 1}: {q.question} <hr/> Correct Answer: {q.options[q.options.findIndex(option => option.includes(q.answer))]} 
-                        </li>
-                      ))}
-                    </ul>
+                  <h4>
+                    <br />
+                    Correct Answers:
+                  </h4>
+                  <ul className="list-group">
+                    {questions.map((q, index) => (
+                      <li key={index} className="list-group-item">
+                        Question {index + 1}: {q.question} <hr /> Correct
+                        Answer:{" "}
+                        {
+                          q.options[
+                            q.options.findIndex((option) =>
+                              option.includes(q.answer),
+                            )
+                          ]
+                        }
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <h4 className="mt-4">Hope you enjoyed the quiz!</h4>
               </div>
@@ -123,40 +142,41 @@ const Quiz = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <h2 className="mb-0">{topic.name} Quiz</h2>
+            <div className="quiz-header">
+              <h2 className="quiz-title">{topic.name} Quiz</h2>
             </div>
 
-           
-
-<div className="question-number-indicator">
-  {Array.from({ length: questions.length }).map((_, idx) => (
-    <div
-      key={idx}
-      className={`question-number-indicator-item${answeredQuestions[idx] ? 'answered' : 'not-answered'}`}
-    >
-      <button
-        onClick={() => {
-          setCurrentQuestion(idx);
-          markAsAnswered(idx);
-        }}
-        className="question-number-btn"
-        aria-current={currentQuestion === idx}
-      >
-        {idx + 1}
-      </button>
-    </div>
-  ))}
-</div>
-
+            <div className="question-number-indicator-wrapper">
+              <div className="question-number-indicator">
+                {Array.from({ length: questions.length }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`question-number-indicator-item${answeredQuestions[idx] ? "answered" : "not-answered"}`}
+                  >
+                    <button
+                      onClick={() => {
+                        setCurrentQuestion(idx);
+                        markAsAnswered(idx);
+                      }}
+                      className="question-number-btn"
+                      aria-current={currentQuestion === idx}
+                    >
+                      {idx + 1}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             <div className="progress-bar">
-              <div 
-                className="progress-fill" 
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+              <div
+                className="progress-fill"
+                style={{
+                  width: `${((currentQuestion + 1) / questions.length) * 100}%`,
+                }}
               ></div>
             </div>
-            
+
             <div className="question-card">
               <div className="question-number">
                 Question {currentQuestion + 1} of {questions.length}
@@ -164,27 +184,31 @@ const Quiz = () => {
               <h3 className="question-text">
                 {questions[currentQuestion]?.question}
               </h3>
-              
+
               <div className="options-container">
                 {questions[currentQuestion]?.options.map((option, index) => {
-                  const optionLetter = option.split(')')[0];
-                  const isSelected = selectedAnswers[currentQuestion] === optionLetter;
-                  const isCorrect = optionLetter === questions[currentQuestion].answer;
+                  const optionLetter = option.split(")")[0];
+                  const isSelected =
+                    selectedAnswers[currentQuestion] === optionLetter;
+                  const isCorrect =
+                    optionLetter === questions[currentQuestion].answer;
                   const isIncorrect = isSelected && !isCorrect;
-                  
-                  let buttonClass = 'option-button';
+
+                  let buttonClass = "option-button";
                   if (showAnswers) {
-                    if (isCorrect) buttonClass += ' correct';
-                    if (isIncorrect) buttonClass += ' incorrect';
+                    if (isCorrect) buttonClass += " correct";
+                    if (isIncorrect) buttonClass += " incorrect";
                   } else if (isSelected) {
-                    buttonClass += ' selected';
+                    buttonClass += " selected";
                   }
-                  
+
                   return (
                     <button
                       key={index}
                       className={buttonClass}
-                      onClick={() => handleAnswerSelect(currentQuestion, optionLetter)}
+                      onClick={() =>
+                        handleAnswerSelect(currentQuestion, optionLetter)
+                      }
                       disabled={showAnswers}
                     >
                       {option}
@@ -193,26 +217,28 @@ const Quiz = () => {
                 })}
               </div>
             </div>
-            
-            <div className="d-flex justify-content-between">
+
+            <div className="quiz-navigation">
               <button
-                className="btn btn-outline-primary"
-                onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
+                className="btn btn-outline-primary quiz-nav-btn"
+                onClick={() =>
+                  setCurrentQuestion(Math.max(0, currentQuestion - 1))
+                }
                 disabled={currentQuestion === 0}
               >
                 ← Previous
               </button>
-              
+
               {currentQuestion < questions.length - 1 ? (
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary quiz-nav-btn"
                   onClick={() => setCurrentQuestion(currentQuestion + 1)}
                 >
                   Next →
                 </button>
               ) : (
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success quiz-nav-btn"
                   onClick={handleSubmit}
                   disabled={!isAllAnswered}
                 >

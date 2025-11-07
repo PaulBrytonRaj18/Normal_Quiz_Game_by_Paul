@@ -19,10 +19,10 @@ const HeroSection = () => {
           </div>
           <div className="col-lg-6 text-center">
             <div className="hero-illustration">
-              <div style={{ fontSize: '8rem', opacity: 0.8 }}>
+              <div className="hero-emoji hero-emoji-large">
                 🧠
               </div>
-              <div style={{ fontSize: '6rem', opacity: 0.6, marginTop: '-2rem' }}>
+              <div className="hero-emoji hero-emoji-small">
                 🎮
               </div>
             </div>
