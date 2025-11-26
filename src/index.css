@@ -307,8 +307,7 @@ body {
     width: 100%;
     overflow-x: auto;
     margin-bottom: 2rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+
 }
 
 .question-number-indicator-wrapper::-webkit-scrollbar {
@@ -366,6 +365,18 @@ body {
     color: white;
     box-shadow: 0 0 12px #007bff66;
     outline: 2px solid #007bff;
+}
+
+@media (max-width: 600px) {
+    .quiz-number {
+        margin: 2px;
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+    .quiz-number-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 .question-number-btn {
