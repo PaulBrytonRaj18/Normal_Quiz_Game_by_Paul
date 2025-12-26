@@ -169,7 +169,7 @@ export const Football_questions = [
   {
     "question": "Which player is known as 'The GOAT'?",
     "options": ["A) Cristiano Ronaldo", "B) Lionel Messi", "C) Neymar", "D) Kylian Mbappe"],
-    "answer": "B"
+    "answer": "A"
   },
   {
     "question": "What is the maximum number of players in a football squad?",
