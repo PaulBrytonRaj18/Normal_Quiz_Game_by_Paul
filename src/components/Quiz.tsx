@@ -1,76 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { topics } from "../data/questions";
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { topics } from '../data/questions';
+import { useQuiz } from '../hooks/useQuiz';
 
 const Quiz = () => {
-  const { topicId } = useParams();
+  const { topicId } = useParams<{ topicId: string }>();
   const navigate = useNavigate();
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const [showAnswers, setShowAnswers] = useState(false);
 
   const topic = topics.find((t) => t.id === topicId);
-  const questions = topic?.questions || [];
+  const questions = topic?.questions ?? [];
+
+  const {
+    currentQuestion,
+    selectedAnswers,
+    showResult,
+    score,
+    showAnswers,
+    answeredQuestions,
+    isAllAnswered,
+    setCurrentQuestion,
+    handleAnswerSelect,
+    handleSubmit,
+    handleRestart,
+    markAsAnswered,
+    getFeedbackMessage,
+  } = useQuiz(questions);
 
   useEffect(() => {
     if (!topic) {
-      navigate("/");
+      navigate('/');
     }
   }, [topic, navigate]);
 
-  const handleAnswerSelect = (questionIndex, answer) => {
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [questionIndex]: answer,
-    }));
+  const handleBackToHome = (): void => {
+    navigate('/');
   };
-
-  const [answeredQuestions, setAnsweredQuestions] = useState(
-    Array(questions.length).fill(false),
-  );
-
-  const markAsAnswered = (idx) => {
-    setAnsweredQuestions((prev) =>
-      prev.map((val, i) => (i === idx ? true : val)),
-    );
-  };
-
-  const handleSubmit = () => {
-    let correctAnswers = 0;
-    questions.forEach((question, index) => {
-      if (selectedAnswers[index] === question.answer) {
-        correctAnswers++;
-      }
-    });
-    setScore(correctAnswers);
-    setShowResult(true);
-    setShowAnswers(true);
-  };
-
-  const handleRestart = () => {
-    setCurrentQuestion(0);
-    setSelectedAnswers({});
-    setShowResult(false);
-    setScore(0);
-    setShowAnswers(false);
-  };
-
-  const handleBackToHome = () => {
-    navigate("/");
-  };
-
-  const getFeedbackMessage = (score) => {
-    if (score >= 9) return "Outstanding! You're a true expert! 🌟";
-    if (score >= 7) return "Excellent work! You know your stuff! 🎉";
-    if (score >= 5) return "Good job! You're on the right track! 👍";
-    if (score >= 3) return "Not bad! Keep learning and improving! 📚";
-    return "Don't give up! Practice makes perfect! 💪";
-  };
-
-  const isAllAnswered =
-    Object.keys(selectedAnswers).length === questions.length;
 
   if (!topic) {
     return (
@@ -105,7 +69,7 @@ const Quiz = () => {
                   </button>
                 </div>
               </div>
-              <br></br>
+              <br />
               <div className="correct-answer">
                 <div className="correct-answers">
                   <h4>
@@ -116,7 +80,7 @@ const Quiz = () => {
                     {questions.map((q, index) => (
                       <li key={index} className="list-group-item">
                         Question {index + 1}: {q.question} <hr /> Correct
-                        Answer:{" "}
+                        Answer:{' '}
                         {
                           q.options[
                             q.options.findIndex((option) =>
@@ -151,7 +115,7 @@ const Quiz = () => {
                 {Array.from({ length: questions.length }).map((_, idx) => (
                   <div
                     key={idx}
-                    className={`question-number-indicator-item${answeredQuestions[idx] ? "answered" : "not-answered"}`}
+                    className={`question-number-indicator-item ${answeredQuestions[idx] ? 'answered' : 'not-answered'}`}
                   >
                     <button
                       onClick={() => {
@@ -174,7 +138,7 @@ const Quiz = () => {
                 style={{
                   width: `${((currentQuestion + 1) / questions.length) * 100}%`,
                 }}
-              ></div>
+              />
             </div>
 
             <div className="question-card">
@@ -187,19 +151,19 @@ const Quiz = () => {
 
               <div className="options-container">
                 {questions[currentQuestion]?.options.map((option, index) => {
-                  const optionLetter = option.split(")")[0];
+                  const optionLetter = option.split(')')[0] as string;
                   const isSelected =
                     selectedAnswers[currentQuestion] === optionLetter;
                   const isCorrect =
-                    optionLetter === questions[currentQuestion].answer;
+                    optionLetter === questions[currentQuestion]?.answer;
                   const isIncorrect = isSelected && !isCorrect;
 
-                  let buttonClass = "option-button";
+                  let buttonClass = 'option-button';
                   if (showAnswers) {
-                    if (isCorrect) buttonClass += " correct";
-                    if (isIncorrect) buttonClass += " incorrect";
+                    if (isCorrect) buttonClass += ' correct';
+                    if (isIncorrect) buttonClass += ' incorrect';
                   } else if (isSelected) {
-                    buttonClass += " selected";
+                    buttonClass += ' selected';
                   }
 
                   return (
